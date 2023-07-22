@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     #local apps
     'property',
     'about',
+    'blog',
+    'settings'
 
 ]
 
