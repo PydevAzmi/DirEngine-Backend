@@ -4,6 +4,14 @@ from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 # Based On The DirEngine Template the Models will be Created
 
+COUNT= {
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+}
+
 class Property(models.Model):
     name = models.CharField(_("name"), max_length=50)
     image = models.ImageField(_("main_image"), upload_to="property/images")
@@ -47,10 +55,20 @@ class Review(models.Model):
     author = models.ForeignKey(User, verbose_name=_("author"), related_name="review_author", on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.property)
+        return f'{str(self.property)} Review by {str(self.author)}'
+
 
 class Book(models.Model):
-    pass
+    owner = models.ForeignKey(User, verbose_name=_("owner"), related_name="property_owner", on_delete=models.CASCADE)
+    created_at = models.DateTimeField(_("created_at"),  default= timezone.now)
+    property = models.ForeignKey(Property, verbose_name=_("property"), related_name="property_booked", on_delete=models.CASCADE)
+    date_from = models.DateField(_("booked from"), default= timezone.now)
+    date_to = models.DateField(_("booked to"), default= timezone.now)
+    guests = models.IntegerField(_("guests"), choices=COUNT)
+    childerns = models.IntegerField(_("childerns"), choices=COUNT)
+
+    def __str__(self):
+        return f'{str(self.property)} Booked by {str(self.owner)}'
 
 
 class RelatedRooms(models.Model):
