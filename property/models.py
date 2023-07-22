@@ -1,5 +1,7 @@
+from typing import Iterable, Optional
 from django.utils import timezone
 from django.db import models
+from django.utils.text import slugify
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 # Based On The DirEngine Template the Models will be Created
@@ -20,6 +22,12 @@ class Property(models.Model):
     place = models.ForeignKey("Place", verbose_name=_("places"),related_name= 'property_places', on_delete=models.CASCADE)
     category = models.ForeignKey("Category", verbose_name=_("category"), related_name="proerty_category", on_delete=models.CASCADE)
     created_at = models.DateTimeField(_("created_at"), default= timezone.now )
+    slug = models.CharField(_("slug"), max_length=50, null=True, blank=True)
+
+    def save(self, *args, **kwargs ):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(Property,self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
