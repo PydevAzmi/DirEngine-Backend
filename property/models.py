@@ -22,7 +22,7 @@ class Property(models.Model):
     price = models.IntegerField(_("price"),default=0)
     descritpion = models.TextField(_("descritpion"))
     place = models.ForeignKey("Place", verbose_name=_("places"),related_name= 'property_places', on_delete=models.CASCADE)
-    category = models.ForeignKey("Category", verbose_name=_("category"), related_name="proerty_category", on_delete=models.CASCADE)
+    category = models.ForeignKey("Category", verbose_name=_("category"), related_name="property_category", on_delete=models.CASCADE)
     created_at = models.DateTimeField(_("created_at"), default= timezone.now )
     slug = models.CharField(_("slug"), max_length=50, null=True, blank=True)
 
@@ -30,13 +30,19 @@ class Property(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         return super(Property,self).save(*args, **kwargs)
-
+        
     def __str__(self):
         return self.name
     
+    def get_related (self):
+        related = Property.objects.filter(place = self.place)[:3]
+        return(related)
+
     def get_absolute_url(self):
         return reverse("property:property_detail", kwargs={"slug": self.slug})
-    
+
+    class Meta:
+        ordering = ["price"]
 
 class PropertyImages(models.Model):
     property = models.ForeignKey(Property, verbose_name=_("property"),related_name="property_images", on_delete=models.CASCADE)
@@ -85,5 +91,3 @@ class Book(models.Model):
         return f'{str(self.property)} Booked by {str(self.owner)}'
 
 
-class RelatedRooms(models.Model):
-    pass
