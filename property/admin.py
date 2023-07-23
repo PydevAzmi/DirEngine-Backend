@@ -1,7 +1,14 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 from .models import Book, Review, Category, Place, PropertyImages, Property
+
+
 # Register your models here.
-admin.site.register(Property)
+class PropertyAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
+    summernote_fields = '__all__'
+
+
+admin.site.register(Property,PropertyAdmin)
 admin.site.register(PropertyImages)
 admin.site.register(Book)
 admin.site.register(Review)
