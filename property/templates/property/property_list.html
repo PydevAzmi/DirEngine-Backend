@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block body %}
     <div class="hero-wrap js-fullheight" style="background-image: url('{% static 'images/bg_1.jpg'%}');">
         <div class="overlay"></div>
@@ -183,23 +182,37 @@
                         {% endfor %}
                     </div>
 
-
+                    {% if is_paginated %}
                     <div class="row mt-5">
                         <div class="col text-center">
                             <div class="block-27">
                                 <ul>
-                                    <li><a href="#">&lt;</a></li>
-                                    <li class="active"><span>1</span></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">&gt;</a></li>
+                                    {% if page_obj.has_previous %}
+                                        <li><a href="?page={{ page_obj.previous_page_number }}">&lt;</a></li>
+                                    {% else %}
+                                        <li><a>&lt;</a></li>
+                                    {% endif %}
+                                    
+                                    {% for i in paginator.page_range  %}
+                                        {% if page_obj.number == i  %} 
+                                            {% if page_obj.has_previous and page_obj.previous_page_number > 1  %}
+                                                <li><a href="?page={{i|add:'-2'}}">{{i|add:"-2"}}</a></li>
+                                                <li><a href="?page={{i|add:'-1'}}">{{i|add:"-1"}}</a></li>
+                                            {% endif %}
+                                            <li class="active"><span>{{i}}</span></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% if page_obj.has_next %}
+                                        <li><a href="?page={{ page_obj.next_page_number }}">&gt;</a></li>
+                                    {% else%}
+                                        <li><a>&gt;</a></li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    
+                    {% endif %}
                 </div> <!-- .col-md-8 -->
             </div>
         </div>
