@@ -9,5 +9,5 @@ class PropertyList(ListView):
 
 
 class PropertyDetail(DetailView):
-    pass
+    DetailView.model = Property
 

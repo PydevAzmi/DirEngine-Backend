@@ -1,4 +1,5 @@
 from typing import Iterable, Optional
+from django.urls import reverse
 from django.utils import timezone
 from django.db import models
 from django.utils.text import slugify
@@ -16,6 +17,7 @@ COUNT= {
 
 class Property(models.Model):
     name = models.CharField(_("name"), max_length=50)
+    title = models.CharField(_("title"), max_length=50, null=True, blank=True)
     image = models.ImageField(_("main_image"), upload_to="property/images")
     price = models.IntegerField(_("price"),default=0)
     descritpion = models.TextField(_("descritpion"))
@@ -31,6 +33,10 @@ class Property(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse("property:property_detail", kwargs={"slug": self.slug})
+    
 
 class PropertyImages(models.Model):
     property = models.ForeignKey(Property, verbose_name=_("property"),related_name="property_images", on_delete=models.CASCADE)
