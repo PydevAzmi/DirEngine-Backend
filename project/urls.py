@@ -22,7 +22,9 @@ from .settings import MEDIA_ROOT
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
-    path("", include("property.urls", namespace= "property") )
+    path("blog/", include("blog.urls", namespace= "blog") ),
+    path("Hotels/", include("property.urls", namespace= "property") ),
+    
 ]
 
 if settings.DEBUG:

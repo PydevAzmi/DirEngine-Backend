@@ -46,9 +46,9 @@ INSTALLED_APPS = [
     "bootstrap4",
     
     #local apps
-    'property',
     'about',
     'blog',
+    'property',
     'settings'
 
 ]
