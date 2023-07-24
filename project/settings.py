@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     #third-party
     'taggit',
     'django_summernote',
+    'django_filters',
+    "django_bootstrap5",
     
     #local apps
     'property',
