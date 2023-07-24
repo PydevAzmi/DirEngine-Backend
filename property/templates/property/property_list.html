@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
+{% load django_bootstrap5  %}
+
     <div class="hero-wrap js-fullheight" style="background-image: url('{% static 'images/bg_1.jpg'%}');">
         <div class="overlay"></div>
         <div class="container">
@@ -54,6 +56,14 @@
                 <div class="col-lg-3 sidebar">
                     <div class="sidebar-wrap bg-light ftco-animate">
                         <h3 class="heading mb-4">Find City</h3>
+                        <form action="" method="get">
+                            {% csrf_token %}
+                            {% bootstrap_form filterset.form %}
+                            <div class="form-group">
+                                {% bootstrap_button button_type="submit" content="Search" %}
+                            </div>
+                          </form>
+                        <!-- 
                         <form action="#">
                             <div class="fields">
                                 <div class="form-group">
@@ -92,7 +102,8 @@
                                     <input type="submit" value="Search" class="btn btn-primary py-3 px-5">
                                 </div>
                             </div>
-                        </form>
+                        </form> 
+                        -->
                     </div>
                     <div class="sidebar-wrap bg-light ftco-animate">
                         <h3 class="heading mb-4">Star Rating</h3>
