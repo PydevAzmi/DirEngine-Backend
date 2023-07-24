@@ -8,6 +8,13 @@ class PostList(ListView):
     model = Post
     paginate_by = 15
 
+    def get_queryset(self):
+        search = self.request.GET.get('query','')
+        post_list = Post.objects.filter(
+            Q(title__icontains = search)|
+            Q(description__icontains = search)
+        )
+        return post_list
 
 class PostDetail(DetailView):
     model = Post
