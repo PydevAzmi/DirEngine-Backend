@@ -16,6 +16,7 @@ COUNT= {
 }
 
 class Property(models.Model):
+    owner = models.ForeignKey(User, verbose_name=_("property_owner"), on_delete=models.CASCADE)
     name = models.CharField(_("name"), max_length=50)
     title = models.CharField(_("title"), max_length=50, null=True, blank=True)
     image = models.ImageField(_("main_image"), upload_to="property/images")
@@ -79,7 +80,7 @@ class Review(models.Model):
 
 
 class Book(models.Model):
-    owner = models.ForeignKey(User, verbose_name=_("owner"), related_name="property_owner", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, verbose_name=_("user"), related_name="property_user", on_delete=models.CASCADE)
     created_at = models.DateTimeField(_("created_at"),  default= timezone.now)
     property = models.ForeignKey(Property, verbose_name=_("property"), related_name="property_booked", on_delete=models.CASCADE)
     date_from = models.DateField(_("booked from"), default= timezone.now)
@@ -88,6 +89,6 @@ class Book(models.Model):
     childerns = models.IntegerField(_("childerns"), choices=COUNT)
 
     def __str__(self):
-        return f'{str(self.property)} Booked by {str(self.owner)}'
+        return f'{str(self.property)} Booked by {str(self.user)}'
 
 
