@@ -62,8 +62,8 @@ class Place(models.Model) :
 
 class Category(models.Model):
     name = models.CharField(_("name"), max_length=50)
-    image = models.ImageField(_("image"), upload_to="category/images")
-
+    icon = models.CharField(_("icon"), max_length=50)
+    
     def __str__(self):
         return str(self.name)
     
