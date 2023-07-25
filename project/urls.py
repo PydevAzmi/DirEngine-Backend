@@ -20,10 +20,11 @@ from django.conf.urls.static import static
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
-    path("blog/", include("blog.urls", namespace= "blog") ),
-    path("Hotels/", include("property.urls", namespace= "property") ),
+    path('admin/', admin.site.urls),
+    path('', include('about.urls', namespace = "about")),
+    path("blog/", include("blog.urls", namespace= "blog")),
+    path("Hotels/", include("property.urls", namespace= "property")),
     
 ]
 
