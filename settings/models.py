@@ -12,6 +12,7 @@ class Company(models.Model):
     insta_link = models.URLField(_("Instagram"), max_length=200 ,null=True ,blank=True)
     linkedin_link = models.URLField(_("Linkedin"), max_length=200 ,null=True ,blank=True)
     twit_link = models.URLField(_("Twitter"), max_length=200 ,null=True ,blank=True)
-    emails = models.TextField(_("Emails") , max_length=100 ,null=True ,blank=True)
-    numbers = models.TextField(_("Numbers"), max_length=100 ,null=True ,blank=True)
     address = models.TextField(_("Address") , max_length=100 ,null=True ,blank=True)
+
+    def __str__(self):
+        return self.name
