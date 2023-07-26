@@ -4,5 +4,6 @@ app_name = 'about'
 
 urlpatterns = [
     path('', views.home, name = "home"),
-    path('search/', views.home_search, name = "home_search")
+    path('search/', views.home_search, name = "home_search"),
+    path('category/<str:category>', views.category_filter, name = "category_filter")
 ]
