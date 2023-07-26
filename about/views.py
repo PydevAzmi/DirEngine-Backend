@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from property.models import Property, Place, Category
+from blog.models import Post
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
@@ -8,9 +9,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def home(request):
     places = Place.objects.all()
     categories = Category.objects.all()
+    recent_posts = Post.objects.all()[:4]
     context = {
         "places" : places,
-        "categories" : categories
+        "categories" : categories,
+        "recent_posts" : recent_posts,
     }
     return render(request, 'about/home.html', context)
 
@@ -37,5 +40,6 @@ def category_filter(request, category):
 
     context = {
         'property_list' : property,
+        "category" : category
     }
     return render(request, 'about/home_search.html', context)
