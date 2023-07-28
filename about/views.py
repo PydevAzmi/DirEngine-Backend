@@ -1,20 +1,41 @@
 from django.shortcuts import render
 from property.models import Property, Place, Category
 from blog.models import Post
-from django.db.models import Q
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.models import User
+from django.db.models import Q, Count
+
 # Create your views here.
 
 
 def home(request):
     places = Place.objects.all()
-    categories = Category.objects.all()
+    categories = Category.objects.all()[:8]
+
+    restaurants = Property.objects.filter(category__name__icontains = 'Restaurant' )[:5]
+    hotels = Property.objects.filter(category__name__icontains = 'Hotel' )[:4]
     recent_posts = Post.objects.all()[:4]
+    feature_places = Place.objects.all().annotate(listing = Count('property_places'))[:5]
+
+    hotel_counter = Property.objects.filter(category__name__icontains = 'Hotel' ).count()
+    restaurant_counter = Property.objects.filter(category__name__icontains = 'Restaurant' ).count()
+    place_counter = Place.objects.all().count
+    user_counter = User.objects.all().count()
+
     context = {
         "places" : places,
         "categories" : categories,
+
+        "popular_restaurants" : restaurants,
+        "popular_hotels" : hotels,
         "recent_posts" : recent_posts,
+        "feature_places" : feature_places,
+        
+        'hotel_counter' : hotel_counter,
+        'restaurant_counter' : restaurant_counter,
+        'place_counter' : place_counter,
+        'user_counter' : user_counter,
     }
+
     return render(request, 'about/home.html', context)
 
 
