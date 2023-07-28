@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from property.models import Property, Place, Category
+from .models import FAQ, About
 from blog.models import Post
 from django.contrib.auth.models import User
 from django.db.models import Q, Count
-
+from django.views.generic import ListView
 # Create your views here.
 
 
@@ -64,3 +65,12 @@ def category_filter(request, category):
         "category" : category
     }
     return render(request, 'about/home_search.html', context)
+
+class AboutList(ListView):
+    model = FAQ
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["about"] = About.objects.last()
+        return context
+    
