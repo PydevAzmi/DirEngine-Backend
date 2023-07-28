@@ -1,9 +1,6 @@
-from django.shortcuts import render, redirect, reverse
-from django.core.mail import send_mail
-from django.conf import settings
+from django.shortcuts import render
 from property.models import Property, Place, Category
 from .models import FAQ, About
-from .forms import SendEmailForm
 from blog.models import Post
 from django.contrib.auth.models import User
 from django.db.models import Q, Count
@@ -77,27 +74,3 @@ class AboutList(ListView):
         context["about"] = About.objects.last()
         return context
     
-
-def contact_us(request):
-    form = SendEmailForm()
-    if request.method == "POST":
-        form = SendEmailForm(data=request.POST)
-        if form.is_valid():
-            print('valid')
-            email = request.POST["email"]
-            name = request.POST["name"]
-            subject = request.POST["subject"]
-            content = request.POST["content"]
-            send_mail(
-                subject= subject ,
-                message=f"{content}\nFrom {name}",
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[email])
-            return redirect("contact/success/")
-    else:
-        form = SendEmailForm()
-
-    return render(request, "about/contact.html", {'form' : form})
-
-def success(request):
-    return render(request,'about/success.html' )
