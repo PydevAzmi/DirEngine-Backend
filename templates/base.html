@@ -6,7 +6,11 @@
     <title>DirEngine</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    
+    {% block style %}
+        
+    {% endblock style %}
+        
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Alex+Brush" rel="stylesheet">
 
@@ -52,12 +56,12 @@
                     {% if user.is_authenticated %}
                     <li class="nav-item cta ml-3 dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                        data-mdb-toggle="dropdown" aria-expanded="false"> <i class="fas fa-user mx-1"></i>Profile</a>
+                        data-mdb-toggle="dropdown" aria-expanded="false"><iconify-icon icon="charm:person" width="14"></iconify-icon> Profile </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                            <li class="dropdown-item fas fa-user">- {{user.username}} -</li>
+                            <li class="dropdown-item">- {{user.username}} -</li>
                             <li>
-                                <a class="dropdown-item" href="#">My account</a>
+                                <a class="dropdown-item" href="{% url 'accounts:profile' %}">My account</a>
                             </li>
         
                             <li>
@@ -169,10 +173,10 @@
     <script src="{% static 'js/aos.js'%}"></script>
     <script src="{% static 'js/jquery.animateNumber.min.js'%}"></script>
     <script src="{% static 'js/bootstrap-datepicker.js'%}"></script>
-    <script src="{% static 'js/jquery.timepicker.min.js'%}"></script>
     <script src="{% static 'js/scrollax.min.js'%}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false">
     </script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <script src="{% static 'js/google-map.js'%}"></script>
     <script src="{% static 'js/main.js'%}"></script>
 

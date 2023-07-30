@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from .models import Profile
+from .models import Profile, User
 from .forms import RegisterationForm
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate , login
 # Create your views here.
 
@@ -20,3 +19,15 @@ def signup(request):
             return redirect(reverse('accounts:profile'))
 
     return render(request, "registration/signup.html", {"form" : signup_form})
+
+def profile(request):
+    user = User.objects.get(id = request.user.id)
+    profile = Profile.objects.get(user = user)
+    context ={
+        "user" : user,
+        "profile" : profile      
+              }
+    return render(request, "profile/profile.html",context )
+
+def profile_edit(request):
+    return render(request, "profile/profile_edit.html")
