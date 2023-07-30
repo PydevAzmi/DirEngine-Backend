@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     
     #third-party
     'taggit',
-
+    'django_countries',
     'django_filters',
     "bootstrap4",
     

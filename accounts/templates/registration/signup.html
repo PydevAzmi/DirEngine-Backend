@@ -10,8 +10,8 @@
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
             <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
-                <span class="mr-2"><a href="/">Home</a></span> <span>Login</span></p>
-            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Login</h1>
+                <span class="mr-2"><a href="/">Home</a></span> <span>Registration</span></p>
+            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Sign Up</h1>
             </div>
         </div>
         </div>
@@ -20,29 +20,18 @@
     <div class="container"  style="margin-top: 80px;margin-bottom: 80px;" >
         <div class="col-md-6  mx-auto">
             {% if form.errors %}
-                <p>Your username and password didn't match. Please try again.</p>
+                <p>password didn't match. Please try again.</p>
             {% endif %}
             
-            {% if next %}
-            {% if user.is_authenticated %}
-                <p>Your account doesn't have access to this page. To proceed,
-                    please login with an account that has access.</p>
-            {% else %}
-                <p>Please login to see this page.</p>
-            {% endif %}
-            {% endif %}
-            
-            <form method="post" action="{% url 'login' %}">
+            <form method="post" >
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                {% bootstrap_button "login" button_type="submit" button_class="btn-primary" %}
-                <input type="hidden" name="next" value="{{ next }}">
+                {% bootstrap_button "Signup" button_type="submit" button_class="btn-primary" %}
             </form>
             <br>
 
             {# Assumes you setup the password_reset view in your URLconf #}
-            <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-            <p>Don't Have Account? <a href="{% url 'accounts:signup' %}"> SignUp Now</a></p>
+            <p>Already Have Account? <a href="{% url 'login' %}">Login</a></p>
         </div>
     </div>
 
