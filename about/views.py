@@ -77,6 +77,15 @@ class AboutList(ListView):
         context["about"] = About.objects.last()
         return context
     
+def tour(request):
+    tours = Property.objects.filter(category__name__icontains = 'Tour' )[:4]
+    
+    context = {
+        'property_list' : tours,
+        "category" : "tour"
+    }
+    return render(request, "about/home_search.html", context)
+    
 
 def contact_us(request):
     form = SendEmailForm()
