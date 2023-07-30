@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block body %}
+
+    
+    <div class="hero-wrap js-fullheight" style="background-image: url({% static 'images/bg_5.jpg'%});">
+        <div class="overlay"></div>
+        <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                <span class="mr-2"><a href="/">Home</a></span> <span>Login</span></p>
+            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Login</h1>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="container"  style="margin-top: 80px;margin-bottom: 80px;" >
+        <div class="col-md-6  mx-auto">
+            {% if form.errors %}
+                <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            
+            {% if next %}
+            {% if user.is_authenticated %}
+                <p>Your account doesn't have access to this page. To proceed,
+                    please login with an account that has access.</p>
+            {% else %}
+                <p>Please login to see this page.</p>
+            {% endif %}
+            {% endif %}
+            
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% bootstrap_button "login" button_type="submit" button_class="btn-primary" %}
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+            <br>
+
+            {# Assumes you setup the password_reset view in your URLconf #}
+            <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+        </div>
+    </div>
+
+
+{% endblock body %}
