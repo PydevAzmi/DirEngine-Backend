@@ -56,6 +56,9 @@ def password_change(request):
         password_form = PasswordChangeForm(user = request.user, data=request.POST)
         if password_form.is_valid():
             password_form.save()
+            password = password_form.cleaned_data['new_password1']
+            user = authenticate(username=request.user.username ,password=password)
+            login(request,user)
             return redirect(reverse('accounts:profile'))
 
     return render(request, "registration/password_change.html", {"form" : password_form})
