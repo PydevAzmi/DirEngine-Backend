@@ -58,15 +58,9 @@
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                         data-mdb-toggle="dropdown" aria-expanded="false"><iconify-icon icon="charm:person" width="14"></iconify-icon> Profile </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
                             <li class="dropdown-item">- {{user.username}} -</li>
-                            <li>
-                                <a class="dropdown-item" href="{% url 'accounts:profile' %}">My account</a>
-                            </li>
-        
-                            <li>
-                                <a class="dropdown-item" href="{% url 'logout'%}">Log out</a>
-                            </li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">My account</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout'%}">Log out</a></li>
                         </ul>
                     </li>
                     {% else %}

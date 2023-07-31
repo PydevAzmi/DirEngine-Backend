@@ -3,25 +3,43 @@
 {% load bootstrap4 %}
 {% block body %}
 
-    
-    <div class="hero-wrap js-fullheight" style="background-image: url({% static 'images/image_5.jpg'%});">
-        <div class="overlay"></div>
-        <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+
+<div class="hero-wrap js-fullheight" style="background-image: url({% static 'images/image_5.jpg'%});">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
+            data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-            <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
-                <span class="mr-2"><a href="/">Home</a></span> <span>Profile</span></p>
-            <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Profile Edit</h1>
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">
+                    <span class="mr-2"><a href="/">Home</a></span> <span>Profile</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Profile Edit</h1>
             </div>
         </div>
-        </div>
     </div>
+</div>
 
-    <div class="container"  style="margin-top: 80px;margin-bottom: 80px;" >
-        <div class="col-md-6  mx-auto">
-            <p>Hello {{request.user}}</p>
-        </div>
+<div class="container" style="margin-top: 80px;margin-bottom: 80px;">
+    <div class="col-md-6  mx-auto">
+        {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <div id="form_errors">
+                    {% for key, value in form.errors.items %}
+                    <strong>{{ value }}</strong>
+                    {% endfor %}
+                </div>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% bootstrap_form profile_form %}
+            {% bootstrap_button "Edit" button_type="submit" button_class="btn-primary" %}
+        </form>
     </div>
+</div>
 
 
 {% endblock body %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Profile, User
-from .forms import RegisterationForm
+from .forms import RegisterationForm , UserEditForm, ProfileEditForm
 from django.contrib.auth import authenticate , login
 # Create your views here.
 
@@ -30,4 +30,21 @@ def profile(request):
     return render(request, "profile/profile.html",context )
 
 def profile_edit(request):
-    return render(request, "profile/profile_edit.html")
+    user = request.user
+    profile =Profile.objects.get(user = user)
+    user_form = UserEditForm( instance= user)
+    profile_form = ProfileEditForm(instance = profile)
+    if request.method == "POST":
+        user_form = UserEditForm(request.POST, instance = user)
+        profile_form = ProfileEditForm(request.POST, request.FILES, instance=profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            account = profile_form.save(commit = False)
+            account.user = user
+            account.save()
+            return redirect(reverse('accounts:profile'))
+    context= {
+        "form" : user_form,
+        "profile_form" : profile_form
+    }
+    return render(request, "profile/profile_edit.html", context)
