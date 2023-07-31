@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Profile, User
-from .forms import RegisterationForm , UserEditForm, ProfileEditForm
+
+from .forms import RegisterationForm , UserEditForm, ProfileEditForm, PasswordChangeForm
 from django.contrib.auth import authenticate , login
 # Create your views here.
 
@@ -48,3 +49,13 @@ def profile_edit(request):
         "profile_form" : profile_form
     }
     return render(request, "profile/profile_edit.html", context)
+
+def password_change(request):
+    password_form = PasswordChangeForm(user = request.user)
+    if request.method == "POST":
+        password_form = PasswordChangeForm(user = request.user, data=request.POST)
+        if password_form.is_valid():
+            password_form.save()
+            return redirect(reverse('accounts:profile'))
+
+    return render(request, "registration/password_change.html", {"form" : password_form})
