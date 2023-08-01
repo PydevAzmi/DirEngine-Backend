@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.db import models
 from django.utils.text import slugify
+from django.core.validators import MaxValueValidator as maxx_length, MinValueValidator as minn_length
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 # Based On The DirEngine Template the Models will be Created
@@ -42,6 +43,19 @@ class Property(models.Model):
     def get_absolute_url(self):
         return reverse("property:property_detail", kwargs={"slug": self.slug})
 
+    def avg_rating(self):
+        all_reviews = self.property_Reviews.all()
+        rating = 0
+        if all_reviews:
+            for rate in all_reviews:
+               rating += rate.rate
+            return round(rating/len(all_reviews),1)
+        else:
+            return rating
+        
+    def check_avilablity(self):
+        pass
+
     class Meta:
         ordering = ["price"]
 
@@ -70,7 +84,7 @@ class Category(models.Model):
 
 class Review(models.Model):
     property = models.ForeignKey(Property, verbose_name=_("property"), related_name="property_Reviews", on_delete=models.CASCADE)
-    rate = models.IntegerField(_("rate"), default=0)
+    rate = models.IntegerField(_("rate"), validators=[maxx_length(5), minn_length(0)], default=0)
     content = models.CharField(_("content"), max_length=150)
     created_at = models.DateTimeField(_("created_at"), default= timezone.now )
     author = models.ForeignKey(User, verbose_name=_("author"), related_name="review_author", on_delete=models.CASCADE)
