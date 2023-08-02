@@ -201,6 +201,7 @@
                             <form action="#" method="post" class="form">
                                 {% csrf_token %}
                                 <!--- rate -->
+                                {% bootstrap_form review_form %}
                                 <div class="form-group">
                                     {% bootstrap_button button_type="submit" content="Rate" %}
                                 </div>

@@ -3,7 +3,7 @@ from django.urls import reverse
 from .filter import PropertyFilter
 from django.views.generic.edit import FormMixin
 from django.views.generic import DetailView, ListView, FormView
-from .forms import BookForm
+from .forms import BookForm, ReviewForm
 from .models import Book, Review, Category, Place, PropertyImages, Property
 from . import models
 # Create your views here.
@@ -33,16 +33,24 @@ def property_detail(request, slug):
 
     if request.method == 'POST':
         check_form = BookForm(request.POST)
+        review_form = ReviewForm(request.POST)
         if check_form.is_valid():
             myform = check_form.save(commit=False)
             myform.property = property
             myform.user = request.user
             myform.save()
+        elif review_form.is_valid():
+            myform = review_form.save(commit=False)
+            myform.property = property
+            myform.author = request.user
+            myform.save()
     else:
         check_form = BookForm()
+        review_form = ReviewForm()
 
     context = {
         "property": property,
+        "review_form" : review_form,
         "form" : check_form,
     }
     return render(request, template , context)
