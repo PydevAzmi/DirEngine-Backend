@@ -6,7 +6,7 @@ from .models import Book, Review, Category, Place, PropertyImages, Property
 # Register your models here.
 class PropertyAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
     summernote_fields = '__all__'
-    list_display = ["name", "avg_rating"]
+    list_display = ["name", "avg_rating",]
 
 
 admin.site.register(Property,PropertyAdmin)

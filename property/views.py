@@ -1,11 +1,11 @@
 from django.shortcuts import render 
-from django.urls import reverse
 from .filter import PropertyFilter
+from django.utils import timezone
 from django.views.generic.edit import FormMixin
 from django.views.generic import DetailView, ListView, FormView
 from .forms import BookForm, ReviewForm
-from .models import Book, Review, Category, Place, PropertyImages, Property
-from . import models
+from .models import Property
+
 # Create your views here.
 
 
@@ -30,27 +30,35 @@ class PropertyList(FilteredListView):
 def property_detail(request, slug):
     property = Property.objects.get(slug = slug)
     template = "property/property_detail.html"
-
+    check_form = BookForm()
+    review_form = ReviewForm()
     if request.method == 'POST':
-        check_form = BookForm(request.POST)
-        review_form = ReviewForm(request.POST)
-        if check_form.is_valid():
-            myform = check_form.save(commit=False)
-            myform.property = property
-            myform.user = request.user
-            myform.save()
-        elif review_form.is_valid():
-            myform = review_form.save(commit=False)
-            myform.property = property
-            myform.author = request.user
-            myform.save()
-    else:
-        check_form = BookForm()
-        review_form = ReviewForm()
+        if "Availability" in request.POST:
+            print("Availability")
+            check_form = BookForm(request.POST)
+            if check_form.is_valid():
+                date_from = check_form.cleaned_data["date_from"]
+                date_to = check_form.cleaned_data["date_to"]
+                myform = check_form.save(commit=False)
+                check = property.check_avilablity(date_from, date_to)
+                if check == "Available":
+                    myform.property = property
+                    myform.user = request.user
+                    myform.save()
+                else :
+                    print("not avalible")
+        elif "Review" in request.POST:
+            print("review")
+            review_form = ReviewForm(request.POST)
+            if review_form.is_valid():
+                myform = review_form.save(commit=False)
+                myform.property = property
+                myform.author = request.user
+                myform.save()
 
     context = {
         "property": property,
         "review_form" : review_form,
-        "form" : check_form,
+        "avaliability_form" : check_form,
     }
     return render(request, template , context)

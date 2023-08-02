@@ -1,4 +1,3 @@
-from typing import Iterable, Optional
 from django.urls import reverse
 from django.utils import timezone
 from django.db import models
@@ -26,6 +25,7 @@ class Property(models.Model):
     place = models.ForeignKey("Place", verbose_name=_("places"),related_name= 'property_places', on_delete=models.CASCADE)
     category = models.ForeignKey("Category", verbose_name=_("category"), related_name="property_category", on_delete=models.CASCADE)
     created_at = models.DateTimeField(_("created_at"), default= timezone.now )
+    avilablity = models.CharField(_("avilabilty"), max_length=50, null=True, blank=True)
     slug = models.CharField(_("slug"), max_length=50, null=True, blank=True)
 
     def save(self, *args, **kwargs ):
@@ -52,9 +52,18 @@ class Property(models.Model):
             return round(rating/len(all_reviews),1)
         else:
             return rating
-        
-    def check_avilablity(self):
-        pass
+    
+    def check_avilablity(self, date_from, date_to):
+        now = timezone.now().date()
+        books = self.property_booked.filter(date_to__gt = now)
+        if books:
+            for book in books:
+                if book.date_to > date_from and book.date_from <= date_to :
+                    return "Not Available"
+            return "Available"
+
+        else: 
+            return "Available"
 
     class Meta:
         ordering = ["price"]

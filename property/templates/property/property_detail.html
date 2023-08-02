@@ -187,9 +187,9 @@
                         <div class="fields">
                             <form action="#" method="post" class="form">
                                 {% csrf_token %}
-                                {% bootstrap_form form %}
+                                {% bootstrap_form avaliability_form %}
                                 <div class="form-group">
-                                    {% bootstrap_button button_type="submit" content="Check Availability" %}
+                                    {% bootstrap_button name="Availability" button_type="submit" content="Check Availability" %}
                                 </div>
                             </form>
                         </div>
@@ -203,7 +203,7 @@
                                 <!--- rate -->
                                 {% bootstrap_form review_form %}
                                 <div class="form-group">
-                                    {% bootstrap_button button_type="submit" content="Rate" %}
+                                    {% bootstrap_button name="Review" button_type="submit" content="Rate" %}
                                 </div>
                             </form>
                         </div>
