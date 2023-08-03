@@ -102,7 +102,7 @@ def contact_us(request):
                 message=f"{content}\nFrom {name}",
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[email])
-            return redirect("contact/success/")
+            return redirect("success/")
     else:
         form = SendEmailForm()
 

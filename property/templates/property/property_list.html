@@ -74,7 +74,7 @@
                         </form> 
                         -->
                     </div>
-                    <div class="sidebar-wrap bg-light ftco-animate">
+                    <!-- <div class="sidebar-wrap bg-light ftco-animate">
                         <h3 class="heading mb-4">Star Rating</h3>
                         <form method="post" class="star-rating">
                             <div class="form-check">
@@ -118,7 +118,7 @@
                                 </label>
                             </div>
                         </form>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-9">
                     <div class="row">
@@ -138,12 +138,14 @@
                                         <div class="one">
                                             <h3><a href="{{property.get_absolute_url}}">{{property.name}}</a></h3>
                                             <p class="rate">
+                                                {% for i in '12345'|make_list %}
+                                                {% if forloop.counter <= property.avg_rating.0 %}
                                                 <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
+                                                {% else %}
                                                 <i class="icon-star-o"></i>
-                                                <span>8 Rating</span>
+                                                {% endif %}
+                                                {% endfor %}
+                                                <span>{{property.avg_rating.0}}</span>
                                             </p>
                                         </div>
                                         <div class="two">
@@ -154,7 +156,7 @@
                                     <hr>
                                     <p class="bottom-area d-flex">
                                         <span><i class="icon-map-o"></i> {{property.place}}</span>
-                                        <span class="ml-auto"><a href="#">Book Now</a></span>
+                                        <span class="ml-auto"><a href="{{property.get_absolute_url}}">Book Now</a></span>
                                     </p>
                                 </div>
                             </div>

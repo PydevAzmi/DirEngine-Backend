@@ -395,12 +395,14 @@
                             <div class="one">
                                 <h3><a href="{{hotel.get_absolute_url}}">{{hotel}}</a></h3>
                                 <p class="rate">
+                                    {% for i in '12345'|make_list %}
+                                    {% if forloop.counter <= hotel.avg_rating.0 %}
                                     <i class="icon-star"></i>
-                                    <i class="icon-star"></i>
-                                    <i class="icon-star"></i>
-                                    <i class="icon-star"></i>
+                                    {% else %}
                                     <i class="icon-star-o"></i>
-                                    <span>8 Rating</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    <span>{{hotel.avg_rating.0}}</span>
                                 </p>
                             </div>
                             <div class="two">
@@ -516,12 +518,14 @@
                     <div class="text p-3">
                         <h3><a href="{{restaurant.get_absolute_url}}">{{restaurant}}</a></h3>
                         <p class="rate">
+                            {% for i in '12345'|make_list %}
+                            {% if forloop.counter <= restaurant.avg_rating.0 %}
                             <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
-                            <i class="icon-star"></i>
+                            {% else %}
                             <i class="icon-star-o"></i>
-                            <span>8 Rating</span>
+                            {% endif %}
+                            {% endfor %}
+                            <span>{{restaurant.avg_rating.0}}</span>
                         </p>
                         <p>{{restaurant.title|truncatewords:6}}</p>
                         <hr>

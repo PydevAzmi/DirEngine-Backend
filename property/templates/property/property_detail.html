@@ -44,12 +44,17 @@
                         <p class="rate mb-5">
                             <span class="loc"><a href="#"><i class="icon-map"></i> {{property.place}}</a></span>
                             <span class="star">
+                                
+                                {% for i in '12345'|make_list %}
+                                {% if forloop.counter <= property.avg_rating.0 %}
                                 <i class="icon-star"></i>
-                                <i class="icon-star"></i>
-                                <i class="icon-star"></i>
-                                <i class="icon-star"></i>
+                                {% else %}
                                 <i class="icon-star-o"></i>
-                                8 Rating</span>
+                                {% endif %}
+                                {% endfor %}
+                                    
+
+                                {{property.avg_rating.0}} ({{property.avg_rating.1}} Rating)</span>
                         </p>
                         <p>{{property.descritpion|safe}}</p>
                         <div class="d-md-flex mt-5 mb-5">
@@ -190,11 +195,7 @@
                         <div class="fields">
                             <form action="#" method="post" class="form">
                                 {% csrf_token %}
-                                {% if avaliability_form.errors %}
-                                {% for key, value in avaliability_form.errors.items %}
-                                <strong>{{ value }}</strong>
-                                {% endfor %}
-                                {% endif %}
+                                
                                 {% bootstrap_form avaliability_form %}
                                 <div class="form-group">
                                     {% bootstrap_button name="Availability" button_type="submit" content="Check Availability" %}
