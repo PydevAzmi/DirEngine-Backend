@@ -59,11 +59,10 @@ class Property(models.Model):
         if books:
             for book in books:
                 if book.date_to > date_from and book.date_from <= date_to :
-                    return "Not Available"
-            return "Available"
-
+                    return False
+            return True
         else: 
-            return "Available"
+            return True
 
     class Meta:
         ordering = ["price"]

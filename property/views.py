@@ -1,6 +1,7 @@
 from django.shortcuts import render 
 from .filter import PropertyFilter
 from django.utils import timezone
+from django.contrib import messages
 from django.views.generic.edit import FormMixin
 from django.views.generic import DetailView, ListView, FormView
 from .forms import BookForm, ReviewForm
@@ -34,27 +35,29 @@ def property_detail(request, slug):
     review_form = ReviewForm()
     if request.method == 'POST':
         if "Availability" in request.POST:
-            print("Availability")
             check_form = BookForm(request.POST)
+            date_from = request.POST.get("date_from")
             if check_form.is_valid():
                 date_from = check_form.cleaned_data["date_from"]
                 date_to = check_form.cleaned_data["date_to"]
                 myform = check_form.save(commit=False)
-                check = property.check_avilablity(date_from, date_to)
-                if check == "Available":
+                is_avaliable = property.check_avilablity(date_from, date_to)
+                if is_avaliable:
                     myform.property = property
                     myform.user = request.user
                     myform.save()
+                    messages.success(request, "Avalible, Booked succesfully")
                 else :
-                    print("not avalible")
+                    messages.warning(request, "Not Avaliable")
+
         elif "Review" in request.POST:
-            print("review")
             review_form = ReviewForm(request.POST)
             if review_form.is_valid():
                 myform = review_form.save(commit=False)
                 myform.property = property
                 myform.author = request.user
                 myform.save()
+                
 
     context = {
         "property": property,

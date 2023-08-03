@@ -182,11 +182,19 @@
                     </div>
 
 
+                    
                     <div class="col-md-12 hotel-single ftco-animate mb-5 mt-4">
+
                         <h4 class="mb-5">Check Availability &amp; Booking</h4>
+                        {% include 'includes/messages.html' %}
                         <div class="fields">
                             <form action="#" method="post" class="form">
                                 {% csrf_token %}
+                                {% if avaliability_form.errors %}
+                                {% for key, value in avaliability_form.errors.items %}
+                                <strong>{{ value }}</strong>
+                                {% endfor %}
+                                {% endif %}
                                 {% bootstrap_form avaliability_form %}
                                 <div class="form-group">
                                     {% bootstrap_button name="Availability" button_type="submit" content="Check Availability" %}
