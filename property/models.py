@@ -49,9 +49,9 @@ class Property(models.Model):
         if all_reviews:
             for rate in all_reviews:
                rating += rate.rate
-            return round(rating/len(all_reviews),1)
+            return [round(rating/len(all_reviews),1), len(all_reviews)]
         else:
-            return rating
+            return [rating, len(all_reviews)]
     
     def check_avilablity(self, date_from, date_to):
         now = timezone.now().date()
@@ -108,7 +108,7 @@ class Book(models.Model):
     date_from = models.DateField(_("booked from"), default= timezone.now)
     date_to = models.DateField(_("booked to"), default= timezone.now)
     guests = models.IntegerField(_("guests"), choices=COUNT)
-    childerns = models.IntegerField(_("childerns"), choices=COUNT)
+    childerns = models.IntegerField(_("childerns"), choices=COUNT, null=True, blank=True)
 
     def __str__(self):
         return f'{str(self.property)} Booked by {str(self.user)}'
