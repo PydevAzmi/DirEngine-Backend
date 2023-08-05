@@ -1,6 +1,5 @@
-from django.shortcuts import render, redirect, reverse
-from django.core.mail import send_mail
-from django.conf import settings
+from django.shortcuts import render, redirect
+from .tasks import send_mail_task
 from property.models import Property, Place, Category
 from .models import FAQ, About
 from .forms import SendEmailForm
@@ -97,11 +96,7 @@ def contact_us(request):
             name = request.POST["name"]
             subject = request.POST["subject"]
             content = request.POST["content"]
-            send_mail(
-                subject= subject ,
-                message=f"{content}\nFrom {name}",
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[email])
+            send_mail_task(subject, content, name, email)
             return redirect("success/")
     else:
         form = SendEmailForm()
