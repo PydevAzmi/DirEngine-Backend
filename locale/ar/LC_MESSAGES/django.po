@@ -22,158 +22,158 @@ msgstr ""
 #: .\about\models.py:6 .\blog\models.py:41 .\property\models.py:20
 #: .\property\models.py:78 .\property\models.py:86 .\settings\models.py:6
 msgid "name"
-msgstr ""
+msgstr "الاسم"
 
 #: .\about\models.py:7
 msgid "who we are?"
-msgstr ""
+msgstr "من نحن ؟"
 
 #: .\about\models.py:8
 msgid "what we do?"
-msgstr ""
+msgstr "ماذا نفعل ؟"
 
 #: .\about\models.py:9
 msgid "our goal"
-msgstr ""
+msgstr "هدفنا"
 
 #: .\about\models.py:10 .\blog\models.py:13 .\blog\models.py:42
 #: .\property\models.py:72 .\property\models.py:79
 msgid "image"
-msgstr ""
+msgstr "الصوره"
 
 #: .\about\models.py:16
 msgid "question"
-msgstr ""
+msgstr "سوال"
 
 #: .\about\models.py:17
 msgid "answer"
-msgstr ""
+msgstr "اجابه"
 
 #: .\accounts\models.py:18 .\property\models.py:105
 msgid "user"
-msgstr ""
+msgstr "مستخدم"
 
 #: .\accounts\models.py:19
 msgid "profile_image"
-msgstr ""
+msgstr "صوره الصفحه"
 
 #: .\accounts\models.py:20
 msgid "Gender"
-msgstr ""
+msgstr "الجنس"
 
 #: .\blog\models.py:11 .\property\models.py:21
 msgid "title"
-msgstr ""
+msgstr "العنوان"
 
 #: .\blog\models.py:14 .\property\models.py:98
 msgid "author"
-msgstr ""
+msgstr "الموءلف"
 
 #: .\blog\models.py:15 .\property\models.py:27 .\property\models.py:97
 #: .\property\models.py:106
 msgid "created_at"
-msgstr ""
+msgstr "نشأت"
 
 #: .\blog\models.py:16 .\property\models.py:26
 msgid "category"
-msgstr ""
+msgstr "الفئه"
 
 #: .\blog\models.py:17
 msgid "description"
-msgstr ""
+msgstr "الوضف"
 
 #: .\blog\models.py:19 .\property\models.py:29
 msgid "slug"
-msgstr ""
+msgstr "الاسم"
 
 #: .\property\models.py:19
 msgid "property_owner"
-msgstr ""
+msgstr "مالك الوحده"
 
 #: .\property\models.py:22
 msgid "main_image"
-msgstr ""
+msgstr "الصوره"
 
 #: .\property\models.py:23
 msgid "price"
-msgstr ""
+msgstr "السعر"
 
 #: .\property\models.py:24
 msgid "descritpion"
-msgstr ""
+msgstr "الوصف"
 
 #: .\property\models.py:25
 msgid "places"
-msgstr ""
+msgstr "المكان"
 
 #: .\property\models.py:28
 msgid "avilabilty"
-msgstr ""
+msgstr "متاح ؟"
 
 #: .\property\models.py:71 .\property\models.py:94 .\property\models.py:107
 msgid "property"
-msgstr ""
+msgstr "الوحده"
 
 #: .\property\models.py:87
 msgid "icon"
-msgstr ""
+msgstr "الصوره التعبيريه"
 
 #: .\property\models.py:95
 msgid "rate"
-msgstr ""
+msgstr "التقييم"
 
 #: .\property\models.py:96
 msgid "content"
-msgstr ""
+msgstr "التعليق"
 
 #: .\property\models.py:108
 msgid "booked from"
-msgstr ""
+msgstr "حجزت من"
 
 #: .\property\models.py:109
 msgid "booked to"
-msgstr ""
+msgstr "حجزت الي"
 
 #: .\property\models.py:110
 msgid "guests"
-msgstr ""
+msgstr "الضيوف"
 
 #: .\property\models.py:111
 msgid "childerns"
-msgstr ""
+msgstr "الاطفال"
 
 #: .\settings\models.py:7
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #: .\settings\models.py:8
 msgid "email"
-msgstr ""
+msgstr "البريد الالكتروني"
 
 #: .\settings\models.py:9
 msgid "logo"
-msgstr ""
+msgstr "اللوجو"
 
 #: .\settings\models.py:10
 msgid "Call_Us"
-msgstr ""
+msgstr "تواصل معنا"
 
 #: .\settings\models.py:11
 msgid "Facebook"
-msgstr ""
+msgstr "فيسبوك"
 
 #: .\settings\models.py:12
 msgid "Instagram"
-msgstr ""
+msgstr "انستجرام"
 
 #: .\settings\models.py:13
 msgid "Linkedin"
-msgstr ""
+msgstr "لينكدان"
 
 #: .\settings\models.py:14
 msgid "Twitter"
-msgstr ""
+msgstr "تويتر"
 
 #: .\settings\models.py:15
 msgid "Address"
-msgstr ""
+msgstr "العنوان"
