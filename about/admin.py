@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import About, FAQ
+from .models import About, FAQ, Subscribtion
 from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
 class AboutAdmin(SummernoteModelAdmin):
@@ -7,3 +7,4 @@ class AboutAdmin(SummernoteModelAdmin):
 
 admin.site.register(About)
 admin.site.register(FAQ)
+admin.site.register(Subscribtion)

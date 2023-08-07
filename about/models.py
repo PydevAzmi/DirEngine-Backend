@@ -1,6 +1,7 @@
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext as _
-
+from django.contrib.auth.models import User
 # Create your models here.
 class About(models.Model):
     name = models.CharField(_("name"), max_length=50)
@@ -18,3 +19,16 @@ class FAQ (models.Model):
 
     def __str__(self):
         return self.question
+
+
+class Subscribtion (models.Model):
+    user = models.ForeignKey(User, verbose_name=_("User"), on_delete=models.CASCADE)
+    email = models.EmailField(_("email"), max_length=254)
+    created_at = models.DateField(_("created at"),default=timezone.now)
+
+    class Meta:
+        verbose_name = _("Subscribtion")
+        verbose_name_plural = _("Subscribers")
+
+    def __str__(self):
+        return str(self.user)

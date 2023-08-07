@@ -1,7 +1,8 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .tasks import send_mail_task
 from property.models import Property, Place, Category
-from .models import FAQ, About
+from .models import FAQ, About, Subscribtion
 from .forms import SendEmailForm
 from blog.models import Post
 from django.contrib.auth.models import User
@@ -41,6 +42,12 @@ def home(request):
 
     return render(request, 'about/home.html', context)
 
+def subcribtion(request):
+    if request.method =="POST":
+        print("hello server")
+        email = request.POST.get("email_input")
+        Subscribtion.objects.create(email = email, user= request.user)
+        return JsonResponse({"done":"done"})
 
 def home_search(request):
     name = request.GET.get('name')

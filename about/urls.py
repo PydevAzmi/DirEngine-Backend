@@ -4,6 +4,7 @@ app_name = 'about'
 
 urlpatterns = [
     path('', views.home, name = "home"),
+    path('subcribe/',views.subcribtion , name = "subcribtion"),
     path('search/', views.home_search, name = "home_search"),
     path('category/<str:category>', views.category_filter, name = "category_filter"),
     path('category/Tour', views.tour, name = "category_tour"),
