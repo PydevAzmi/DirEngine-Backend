@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from .settings import MEDIA_ROOT
 
 urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include("accounts.urls", namespace="accounts")),
     path('admin/', admin.site.urls),    

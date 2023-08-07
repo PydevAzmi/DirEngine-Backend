@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,13 +46,13 @@
 
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="/about" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="/category/Tour" class="nav-link">Tour</a></li>
-                    <li class="nav-item"><a href="/Property" class="nav-link">Property</a></li>
-                    <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
-                    <li class="nav-item cta"><a href="/contact" class="nav-link"><span>Add listing</span></a></li>
+                    <li class="nav-item"><a href="/" class="nav-link">{% translate "Home"%}</a></li>
+                    <li class="nav-item"><a href="/about" class="nav-link">{% translate "About"%}</a></li>
+                    <li class="nav-item"><a href="/category/Tour" class="nav-link">{%translate "Tour"%}</a></li>
+                    <li class="nav-item"><a href="/Property" class="nav-link">{%translate "Property"%}</a></li>
+                    <li class="nav-item"><a href="/blog" class="nav-link">{%translate "Blog"%}</a></li>
+                    <li class="nav-item"><a href="/contact" class="nav-link">{%translate "Contact"%}</a></li>
+                    <li class="nav-item cta"><a href="/contact" class="nav-link"><span>{%translate "Add listing"%}</span></a></li>
                     
                     {% if user.is_authenticated %}
                     <li class="nav-item cta ml-3 dropdown">
@@ -59,13 +60,13 @@
                         data-mdb-toggle="dropdown" aria-expanded="false"><iconify-icon icon="charm:person" width="14"></iconify-icon> Profile </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li class="dropdown-item">- {{user.username}} -</li>
-                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">My account</a></li>
-                            <li><a class="dropdown-item" href="{% url 'logout'%}">Log out</a></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">{%translate  "My account"%}</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logout'%}">{%translate "Log out"%}</a></li>
                         </ul>
                     </li>
                     {% else %}
 
-                    <li class="nav-item cta ml-3"><a href="{% url 'login'%}" class="nav-link"><span>Login</span></a></li>
+                    <li class="nav-item cta ml-3"><a href="{% url 'login'%}" class="nav-link"><span>{%translate "Login"%}</span></a></li>
                     {% endif %}
                 </ul>
             </div>
@@ -129,6 +130,22 @@
                                             class="text">{{info.email}}</span></a></li>
                             </ul>
                         </div>
+                        
+
+                        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                            <input name="next" type="hidden" value="{{ redirect_to }}">
+                            <select name="language">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                        {{ language.name_local }} ({{ language.code }})
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="Go">
+                        </form>
                     </div>
                 </div>
             </div>
