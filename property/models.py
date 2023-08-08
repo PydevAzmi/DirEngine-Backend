@@ -25,7 +25,7 @@ class Property(models.Model):
     place = models.ForeignKey("Place", verbose_name=_("places"),related_name= 'property_places', on_delete=models.CASCADE)
     category = models.ForeignKey("Category", verbose_name=_("category"), related_name="property_category", on_delete=models.CASCADE)
     created_at = models.DateTimeField(_("created_at"), default= timezone.now )
-    avilablity = models.CharField(_("avilabilty"), max_length=50, null=True, blank=True)
+    avilablity = models.BooleanField(_("avilabilty"), null=True, blank=True)
     slug = models.CharField(_("slug"), max_length=50, null=True, blank=True)
 
     def save(self, *args, **kwargs ):
