@@ -1,11 +1,11 @@
-from django.shortcuts import render 
+from django.shortcuts import redirect, render 
 from .filter import PropertyFilter
 from django.utils import timezone
 from django.contrib import messages
 from django.views.generic.edit import FormMixin
 from django.views.generic import DetailView, ListView, FormView
-from .forms import BookForm, ReviewForm
-from .models import Property
+from .forms import BookForm, ReviewForm, PropertyForm, PropertyImagesFormsets
+from .models import Property, PropertyImages
 
 # Create your views here.
 
@@ -65,3 +65,25 @@ def property_detail(request, slug):
         "avaliability_form" : check_form,
     }
     return render(request, template , context)
+
+def property_create(request):
+    form = PropertyForm()
+    formset = PropertyImagesFormsets()
+    if request.method == "POST":
+        form = PropertyForm(request.POST, request.FILES)
+        formset = PropertyImagesFormsets(request.POST, request.FILES)
+        if form.is_valid() and formset.is_valid():
+            property = form.save(commit= False)
+            property.owner = request.user
+            property.avilablity = False
+            property.save()
+            for image_form in formset:
+                image = image_form.cleaned_data['image']
+                PropertyImages.objects.create(property = property, image=image)
+            return redirect("/Property")
+
+    context = {
+        "form" : form,
+        "formset" : formset
+    }
+    return render(request, "property/new_property.html", context)

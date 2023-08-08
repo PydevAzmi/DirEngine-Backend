@@ -1,5 +1,23 @@
 from django import forms
-from .models import Book, Review, timezone
+from django.forms import formset_factory
+from .models import Property, PropertyImages, Book, Review, timezone
+
+
+class PropertyForm(forms.ModelForm):
+    class Meta:
+        model = Property
+        fields = ["name", "title", "image", "price", "descritpion", "place", "category"]
+
+class PropertyImagesForm(forms.ModelForm):
+    class Meta:
+        model = PropertyImages
+        fields = ['image']
+
+PropertyImagesFormsets = formset_factory(
+    PropertyImagesForm,
+    extra=4,
+
+)
 
 class DateInput(forms.DateInput):
     input_type = 'date'
