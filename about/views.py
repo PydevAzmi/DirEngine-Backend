@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .tasks import send_mail_task
@@ -44,10 +45,17 @@ def home(request):
 
 def subcribtion(request):
     if request.method =="POST":
-        print("hello server")
-        email = request.POST.get("email_input")
-        Subscribtion.objects.create(email = email, user= request.user)
-        return JsonResponse({"done":"done"})
+        email = request.POST.get("email_input").lower()
+        if not email:
+            return JsonResponse({"error": "Please, write your email"}, status=400)
+        elif Subscribtion.objects.filter(email=email).exists():
+            return JsonResponse({"error": "This Email is already subscribed"}, status=400)
+        elif email and not Subscribtion.objects.filter(email=email).exists():
+            Subscribtion.objects.create(email = email, user= request.user)
+            return JsonResponse({"success":"Subcribed successfully"}, status=200)
+        return JsonResponse({"error": "write a valid Email"}, status=400)
+        
+        
 
 def home_search(request):
     name = request.GET.get('name')

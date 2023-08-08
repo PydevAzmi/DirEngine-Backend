@@ -586,7 +586,7 @@
                             <form  id="subcribtion" action="{% url 'about:subcribtion' %}" method="post" class="subscribe-form">
                                 {% csrf_token %}
                                 <div class="form-group d-flex">
-                                    <input type="text" class="form-control" name ="email_input" placeholder="Enter email address">
+                                    <input type="email" class="form-control" name ="email_input" placeholder="Enter email address">
                                     <input type="submit" value="Subscribe" class="submit px-3">
                                 </div>
                             </form>
@@ -594,7 +594,7 @@
                     </div>
                 </div>
                 <div id="subcribtion_success" style="display:none" class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-                    <h2>Subcribed successfully</h2>
+                    <h2 id = "output">Subcribed successfully</h2>
                 </div>
             </div>
         </div>
@@ -614,9 +614,20 @@ integrity = "sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin = 
             type: "POST",
             url: url,
             data: form.serialize(),
-            success: function (response) {
-                document.getElementById("subcribtion_form").style.display = "none"
-                document.getElementById("subcribtion_success").style.display = "block"
+            success: function (data) {
+                document.getElementById("subcribtion_form").style.display = "none";
+                document.getElementById("subcribtion_success").style.display = "block";
+                $("#subcribtion_success").delay(4000).fadeOut();
+                $("#subcribtion_form").delay(4500).fadeIn();
+            },
+            error: function (data){
+                $('#output').html(data.responseJSON.error);
+                document.getElementById("subcribtion_form").style.display = "none";
+                document.getElementById("subcribtion_success").style.display = "block";
+                $("#subcribtion_success").delay(4000).fadeOut();
+                $("#subcribtion_form").delay(4500).fadeIn();
+
+               
             }
         })
     })
